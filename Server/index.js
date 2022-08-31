@@ -6,7 +6,7 @@ const {Server}=require('socket.io');
 // const port = 3000;
 
 app.use(cors());
-// server is created
+// server is created and working successfully.
 const server=http.createServer(app);
 const io=new Server(server,{
     cors:{
