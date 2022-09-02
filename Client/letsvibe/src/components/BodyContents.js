@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-
-function BodyContents({socket,username,password}) {
+function BodyContents({ socket, username, password }) {
   const [currentmessage, setCurrentmessage] = useState("");
-  const sendmessage = async() => {
+  const [messageList, setMessageList] = useState([]);
+  const sendmessage = async () => {
     if (currentmessage !== "") {
       const messageData = {
         password: password,
@@ -13,28 +13,25 @@ function BodyContents({socket,username,password}) {
         time:
           new Date(Date.now()).getHours() +
           ":" +
-          new Date(Date.now()).getMinutes()+
-		  ":" +new Date(Date.now()).getSeconds()
-        
+          new Date(Date.now()).getMinutes() +
+          ":" +
+          new Date(Date.now()).getSeconds(),
       };
-	  await socket.emit("send_message",messageData);
+      await socket.emit("send_message", messageData);
+      setMessageList((list) => [...list, messageData]);
     }
   };
 
-  useEffect(()=>{
-    socket.on("receive_message",(data)=>{
-		console.log(data);
-		
-	
-		io.socket.removeAllListeners();
-    })
-	
-	
-    })
-	
-	
- 
-  
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      //   console.log(data);
+      // var data=data;
+      setMessageList((list) => [...list, data]);
+
+      io.socket.removeAllListeners();
+    });
+  }, [socket]);
+
   return (
     <>
       <div className="content">
@@ -47,25 +44,27 @@ function BodyContents({socket,username,password}) {
           </div>
         </div>
         <div className="messages">
-          <ul>
-            <li className="sent">
-              <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-              <p>
-                How the hell am I supposed to get a jury to believe you when I
-                am not even sure that I do?!
-              </p>
-            </li>
-            <li className="replies">
-              <img
-                src="http://emilcarlsson.se/assets/harveyspecter.png"
-                alt=""
-              />
-              <p>
-                When you're backed against the wall, break the god damn thing
-                down.
-              </p>
-            </li>
-          </ul>
+          {messageList.map((messageContent) => {
+            return (
+              <ul>
+                <li className={username===messageContent.author?"replies":"sent"}>
+                  <img
+                    src="http://emilcarlsson.se/assets/mikeross.png"
+                    alt=""
+                  />
+                  <p>
+                    {messageContent.message}
+					<br />
+				 <span id={username===messageContent.author?"right":"left"}>{messageContent.time}</span>
+               
+                  </p>
+				 
+                </li>
+				
+              </ul> 
+            );
+          })}
+         
         </div>
         <div className="message-input">
           <div className="wrap">
@@ -75,6 +74,10 @@ function BodyContents({socket,username,password}) {
               onChange={(event) => {
                 setCurrentmessage(event.target.value);
               }}
+			  onKeyPress={(event)=>{
+				
+					event.key==="Enter" &&sendmessage();
+			  }}
             />
             <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
             <button className="submit" onClick={sendmessage}>

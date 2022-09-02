@@ -12,6 +12,9 @@ body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
 }
+#root{
+width: 60%;
+}
 
 #frame {
   width: 95%;
@@ -32,7 +35,7 @@ body {
   float: left;
   min-width: 280px;
   max-width: 340px;
-  width: 40%;
+  width: 30%;
   height: 100%;
   background: #2c3e50;
   color: #f5f5f5;
@@ -543,8 +546,8 @@ body {
 }
 #frame .content .messages {
   height: auto;
-  min-height: calc(100% - 93px);
-  max-height: calc(100% - 93px);
+  min-height: calc(100% - 109px);
+  max-height: calc(100% - 109px);
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -577,6 +580,7 @@ body {
 #frame .content .messages ul li.sent p {
   background: #435f7a;
   color: #f5f5f5;
+  max-width: 25vw;
 }
 #frame .content .messages ul li.replies img {
   float: right;
@@ -585,6 +589,7 @@ body {
 #frame .content .messages ul li.replies p {
   background: #f5f5f5;
   float: right;
+  max-width: 25vw;
 }
 #frame .content .messages ul li img {
   width: 22px;
@@ -669,3 +674,17 @@ body {
   outline: none;
 }
 
+#right{
+  position: relative;
+  top:31px;
+  font-size: 12px;
+
+}
+#left{
+  position: relative;
+  top:31px;
+  color: #32465a;
+    float: right;
+    font-size: 12px;
+
+}
