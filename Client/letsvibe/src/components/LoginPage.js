@@ -2,12 +2,13 @@ import React from 'react'
 
 function LoginPage(props) {
 	
+	
   return (
    <>
    <div className="container">
 	<div className="screen">
 		<div className="screen__content">
-			<form className="login" >
+			<div className="login" >
 				<div className="login__field">
 					<i className="login__icon fas fa-user"></i>
 					<input type="text" name="email"  className="login__input" placeholder="User name / Email" onChange={(event)=>{
@@ -24,7 +25,7 @@ function LoginPage(props) {
 					<span className="button__text">Log In Now</span>
 					<i className="button__icon fas fa-chevron-right"></i>
 				</button>				
-			</form>
+			</div>
 			<div className="social-login">
 				<h3>log in via</h3>
 				<div className="social-icons">

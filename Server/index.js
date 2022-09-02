@@ -22,10 +22,18 @@ io.on('connection',(socket)=>{
     socket.join(data);
     console.log(`User with ID:${socket.id} joined the chat:${data}`)
    })
-
+ 
+    socket.on("send_message",(data)=>{
+        socket.broadcast.emit("receive_message",data);
+       
+        
+    })
    socket.on('disconnect',()=>{
     console.log("User disconnected:",socket.id);
+    
+   
    })
+  
 });
 
 server.listen(3001,()=>{
