@@ -3,9 +3,10 @@ import './App.css';
 import './LoginPage.css';
 import io from "socket.io-client";
 import BodyContents from './components/BodyContents';
-import LoginPage from './components/LoginPage';
+
 import SidePanel from './components/SidePanel';
 import { useState  } from 'react';
+import LoginPage from './components/LoginPage';
 
 const socket=io.connect('http://localhost:3001');
 
@@ -27,7 +28,7 @@ function App() {
   return (
    <>
    {!show?(
-   <LoginPage  setUsername={setUsername} setPassword={setPassword} joinRoom={joinRoom} />
+   <LoginPage setUsername={setUsername} setPassword={setPassword} joinRoom={joinRoom} />
    ):(
     <div id="frame">
      <BodyContents socket={socket } username={username } password={password}/>

@@ -1,49 +1,68 @@
 import React from 'react'
-
-function LoginPage(props) {
-	
+import image from '../images/img-01.png';
+function log(props) {
   return (
-   <>
-   <div className="container">
-	<div className="screen">
-		<div className="screen__content">
-			<div className="login" >
-				<div className="login__field">
-					<i className="login__icon fas fa-user"></i>
-					<input type="text" name="email"  className="login__input" placeholder="User name / Email" onChange={(event)=>{
+    <>
+      <div className="limiter">
+		<div className="container-login100">
+			<div className="wrap-login100">
+				<div className="login100-pic js-tilt" data-tilt>
+					<img src={image} alt="IMG"/>
+				</div>
+
+				<form className="login100-form validate-form">
+					<span className="login100-form-title">
+						Login to Vibe
+					</span>
+
+					<div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input className="input100" type="text" name="email" placeholder="Email/Username" onChange={(event)=>{
 						props.setUsername(event.target.value)
 					}}/>
-				</div>
-				<div className="login__field">
-					<i className="login__icon fas fa-lock"></i>
-					<input type="password"name="password"  className="login__input" placeholder="Password" onChange={(event)=>{
+						<span className="focus-input100"></span>
+						<span className="symbol-input100">
+							<i className="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div className="wrap-input100 validate-input" data-validate = "Password is required">
+						<input className="input100" type="password" name="pass" placeholder="Password" onChange={(event)=>{
 						props.setPassword(event.target.value)
 					}}/>
-				</div>
-				<button className="button login__submit" type="submit" onClick={props.joinRoom}>
-					<span className="button__text">Log In Now</span>
-					<i className="button__icon fas fa-chevron-right"></i>
-				</button>				
-			</div>
-			<div className="social-login">
-				<h3>log in via</h3>
-				<div className="social-icons">
-					<a href="/" className="social-login__icon fab fa-instagram"></a>
-					<a href="/" className="social-login__icon fab fa-facebook"></a>
-					<a href="/" className="social-login__icon fab fa-twitter"></a>
-				</div>
+						<span className="focus-input100"></span>
+						<span className="symbol-input100">
+							<i className="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div className="container-login100-form-btn">
+						<button className="login100-form-btn" onClick={props.joinRoom}>
+							Login
+						</button>
+					</div>
+
+					<div className="text-center pt-3 pb-1 ">
+						<span className="txt1">
+							Forgot
+						</span>
+						<a className="txt2" href="#">
+							Username / Password?
+						</a>
+					</div>
+
+					<div className="text-center p-t-136">
+						<a className="txt2" href="#">
+							Create your Account
+							<i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
 			</div>
 		</div>
-		<div className="screen__background">
-			<span className="screen__background__shape screen__background__shape4"></span>
-			<span className="screen__background__shape screen__background__shape3"></span>		
-			<span className="screen__background__shape screen__background__shape2"></span>
-			<span className="screen__background__shape screen__background__shape1"></span>
-		</div>		
 	</div>
-</div>
-   </>
+	
+    </>
   )
 }
 
-export default LoginPage
+export default log

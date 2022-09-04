@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+// import {Howl, Howler} from 'howler';
+import sound from "../messageTone/notification.mp3";
+var audio=new Audio(sound);
 
 function BodyContents({ socket, username, password }) {
   const [currentmessage, setCurrentmessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+
   const sendmessage = async () => {
     if (currentmessage !== "") {
       const messageData = {
@@ -13,21 +17,22 @@ function BodyContents({ socket, username, password }) {
         time:
           new Date(Date.now()).getHours() +
           ":" +
-          new Date(Date.now()).getMinutes() +
-          ":" +
-          new Date(Date.now()).getSeconds(),
+          new Date(Date.now()).getMinutes() 
+          // +
+          // ":" +
+          // new Date(Date.now()).getSeconds(),
       };
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
+      setCurrentmessage("");
     }
   };
-
+ 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      //   console.log(data);
-      // var data=data;
+       
       setMessageList((list) => [...list, data]);
-
+      audio.play();
       io.socket.removeAllListeners();
     });
   }, [socket]);
@@ -37,7 +42,7 @@ function BodyContents({ socket, username, password }) {
       <div className="content">
         <div className="contact-profile">
           <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-          <p>Harvey Specter</p>
+          <p>{username}</p>
           <div className="social-media">
             <i className="fa-solid fa-video" aria-hidden="true"></i>
             <i className="fa-solid fa-square-phone-flip" aria-hidden="true"></i>
@@ -69,7 +74,7 @@ function BodyContents({ socket, username, password }) {
         <div className="message-input">
           <div className="wrap">
             <input
-              type="text"
+              type="text" value={currentmessage}
               placeholder="Write your message..."
               onChange={(event) => {
                 setCurrentmessage(event.target.value);
